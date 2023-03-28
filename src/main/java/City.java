@@ -1,55 +1,75 @@
-import java.util.Objects;
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
+@Table(name = "city")
 public class City {
-    private int id;
-    private String city_name;
 
-    public City(int id, String city_name) {
-        this.id = id;
-        this.city_name = city_name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cityId")
+    private int cityId;
+
+    @Column(name = "cityName")
+    private String cityName;
+
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<Employee> employees;
+
+
+    public City(int cityId, String cityName) {
+        this.cityId = cityId;
+        this.cityName = cityName;
     }
 
-    public City(String city_name) {
-        this.city_name = city_name;
+    public City(int cityId, String cityName, List<Employee> employees) {
+        this.cityId = cityId;
+        this.cityName = cityName;
+        this.employees = employees;
+    }
+
+    public City(String cityName, List<Employee> employees) {
+        this.cityName = cityName;
+        this.employees = employees;
     }
 
     public City() {
     }
 
-    public int getId() {
-        return id;
+    public City(String cityName) {
+        this.cityName = cityName;
     }
 
-    public String getCity_name() {
-        return city_name;
+    public int getCityId() {
+        return cityId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCityId(int city_id) {
+        this.cityId = city_id;
     }
 
-    public void setCity_name(String city_name) {
-        this.city_name = city_name;
+    public String getCityName() {
+        return cityName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        City city = (City) o;
-        return id == city.id && Objects.equals(city_name, city.city_name);
+    public void setCityName(String city_name) {
+        this.cityName = city_name;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, city_name);
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 
     @Override
     public String toString() {
         return "City{" +
-                "id=" + id +
-                ", city_name='" + city_name + '\'' +
+                "city_id=" + cityId +
+                ", city_name='" + cityName + '\'' +
+                ", employees=" + employees +
                 '}';
     }
 }
