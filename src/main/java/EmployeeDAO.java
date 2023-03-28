@@ -10,6 +10,8 @@ public interface EmployeeDAO {
     List<Employee>getAllEmployees() throws SQLException;
 
     void updateEmployeeById(int id, Employee employee) throws SQLException;
+    void updateEmployee(Employee employee);
 
     void deleteEmployeeById(int id) throws SQLException;
+    void deleteEmployee(Employee employee);
 }
